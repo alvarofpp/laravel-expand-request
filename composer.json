@@ -1,0 +1,30 @@
+{
+    "name": "alvarofpp/expand-request",
+    "description": "A package to make it easy to manipulate your requests and more",
+    "keywords" : ["laravel", "request", "helpers"],
+    "type": "library",
+    "homepage": "https://github.com/alvarofpp/laravel-expand-request",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Álvaro Ferreira Pires de Paiva",
+            "email": "alvarofepipa@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.2.0"
+    },
+    "require-dev": {
+        "laravel/laravel": ">=6.0"
+    },
+    "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
+        "psr-4": {
+            "Alvarofpp\\ExpandRequest\\": "/src"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
