@@ -17,20 +17,22 @@ composer require alvarofpp/expand-request
 
 ## Usage
 This package currently contains:
-- Checks whether the current request url belongs to a pattern.
+- Checks whether the request url belongs to a pattern.
 - Add url parameters to be validated.
   - Rename url parameters.
 - Remove extra parameters.
 
 ### Checks whether the current request url belongs to a pattern
-You can check whether the current request url belongs to a url pattern or route pattern. Use this methods:
-- `is_url($patterns, $return = true, $defaultReturn = false)`
-- `is_route($patterns, $return = true, $defaultReturn = false)`
+You can check whether the request url belongs to a url pattern or route pattern. Use this methods:
+- `is_url($patterns, $request = null)`
+- `is_route($patterns, $request = null)`
+
+By default, `$request` is the current request.
 
 Example: You can use this to activate a class in your menu, such as:
 ```html
 <li class="nav-item ">
-    <a class="{{ is_route('courses.index', 'open', '') }}" href="{{route('courses.index')}}">
+    <a class="{{ is_route('courses.index') ? 'open' : '' }}" href="{{route('courses.index')}}">
         <span class="item-name">Show courses</span>
     </a>
 </li>
@@ -39,10 +41,20 @@ Example: You can use this to activate a class in your menu, such as:
 These methods accept a array as the first parameter, so that you can check various patterns:
 ```html
 <li class="nav-item ">
-    <a class="{{ is_route(['courses.index', 'contents.index',], 'open', '') }}" href="{{route('courses.index')}}">
+    <a class="{{ is_route(['courses.index', 'contents.index',]) ? 'open' : '' }}" href="{{route('courses.index')}}">
         <span class="item-name">Show courses</span>
     </a>
 </li>
+```
+
+Another example is that you can use it to check where the user is coming from:
+```php
+<?php
+// ...
+$previousUrl = app('request')->create(url()->previous());
+if (is_url('courses/create', $previousUrl)) {
+    // Do something...
+}
 ```
 
 ### UrlParameters
