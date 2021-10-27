@@ -11,7 +11,7 @@ trait RemoveExtraParameters
     public function __construct()
     {
         parent::__construct();
-        if (! property_exists($this, 'accept')) {
+        if (!property_exists($this, 'accept')) {
             $values = array_merge(array_keys($this->rules()), array_keys($this->attributes()));
             $this->accept = array_unique($values);
         }
@@ -26,13 +26,8 @@ trait RemoveExtraParameters
     public function all($keys = null): array
     {
         $all = parent::all();
+        $keysAccepted = array_intersect(array_keys($all), $this->accept);
 
-        foreach ($all as $key => $value) {
-            if (!in_array($key, $this->accept)) {
-                unset($all[$key]);
-            }
-        }
-
-        return $all;
+        return array_intersect_key($all, array_flip($keysAccepted));
     }
 }
